@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASB Consulting - Стратегия бухгалтерских услуг</title>
+    <style>
+        :root {
+            --primary-dark: #1A3A52;
+            --primary-blue: #2E7D9D;
+            --text-dark: #2C3E50;
+            --text-light: #f1f5f9;
+            --accent-gold: #D4AF37;
+            --accent-green: #47B881;
+            --accent-orange: #FF8C00;
+            --accent-red: #FF6B6B;
+            --bg-dark: #0f172a;
+            --bg-surface: #1e293b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-family: Arial, sans-serif;
+            line-height: 1.4;
+            color: var(--text-dark);
+            background-color: var(--bg-dark);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .slide {
+            width: 960px;
+            height: 540px;
+            margin: 0 auto 20px;
+            display: flex;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+            padding: 64px;
+        }
+
+        .slide.col {
+            flex-direction: column;
+        }
+
+        .slide.row {
+            flex-direction: row;
+        }
+
+        .slide.center {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .slide.items-start {
+            align-items: flex-start;
+        }
+
+        .slide.items-center {
+            align-items: center;
+        }
+
+        .slide.space-between {
+            justify-content: space-between;
+        }
+
+        .gap-md {
+            gap: 1rem;
+        }
+
+        .gap-lg {
+            gap: 1.5rem;
+        }
+
+        .gap-xl {
+            gap: 2rem;
+        }
+
+        .fill-width {
+            flex: 1;
+            width: 100%;
+        }
+
+        .fill-height {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            margin: 0;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        h1 { font-size: 3.75rem; }
+        h2 { font-size: 2.25rem; }
+        h3 { font-size: 1.75rem; }
+        h4 { font-size: 1.5rem; }
+        h5 { font-size: 1.25rem; }
+
+        .text-6xl { font-size: 3.75rem; }
+        .text-5xl { font-size: 3rem; }
+        .text-4xl { font-size: 2.25rem; }
+        .text-3xl { font-size: 1.875rem; }
+        .text-2xl { font-size: 1.5rem; }
+        .text-xl { font-size: 1.25rem; }
+        .text-lg { font-size: 1.125rem; }
+        .text-base { font-size: 1rem; }
+        .text-sm { font-size: 0.875rem; }
+
+        .font-bold { font-weight: 700; }
+        .font-semibold { font-weight: 600; }
+        .font-medium { font-weight: 500; }
+        .font-normal { font-weight: 400; }
+
+        .text-center { text-align: center; }
+        .text-left { text-align: left; }
+
+        p {
+            margin: 0 0 1rem 0;
+        }
+
+        ul, ol {
+            margin-left: 2rem;
+            line-height: 1.8;
+        }
+
+        li {
+            margin-bottom: 0.75rem;
+        }
+
+        li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Spacing utilities */
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        .mt-4 { margin-top: 1rem; }
+        .mt-8 { margin-top: 2rem; }
+        .mt-12 { margin-top: 3rem; }
+
+        /* Card styles */
+        .card {
+            padding: 2rem;
+            border-radius: 0;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h3 {
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            margin-bottom: 0;
+        }
+
+        /* Theme backgrounds */
+        .bg-primary-dark {
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+        }
+
+        .bg-primary-blue {
+            background-color: var(--primary-blue);
+            color: var(--text-light);
+        }
+
+        .bg-surface {
+            background-color: var(--bg-surface);
+        }
+
+        .bg-light {
+            background-color: #f8f9fa;
+        }
+
+        /* Grid */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem;
+        }
+
+        /* Comparison table */
+        .comparison-row {
+            display: flex;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 0;
+        }
+
+        .comparison-row span {
+            flex: 1;
+        }
+
+        /* Chart/visualization */
+        .chart-bar {
+            display: flex;
+            align-items: flex-end;
+            gap: 1rem;
+            height: 200px;
+        }
+
+        .bar-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .bar {
+            width: 100%;
+            background-color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+            border-radius: 0;
+        }
+
+        .bar-label {
+            font-size: 0.875rem;
+            text-align: center;
+        }
+
+        /* Two-column layout */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            width: 100%;
+        }
+
+        .two-col-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Color text utilities */
+        .text-gold { color: var(--accent-gold); }
+        .text-white { color: white; }
+        .text-light { color: var(--text-light); }
+        .text-primary { color: var(--primary-dark); }
+        .text-blue { color: var(--primary-blue); }
+
+        /* Emphasis */
+        strong, .font-bold {
+            font-weight: 700;
+        }
+
+        /* List styles */
+        .list-check li:before {
+            content: "✓ ";
+            color: var(--accent-gold);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .text-muted {
+            opacity: 0.8;
+        }
+
+        .opacity-90 { opacity: 0.9; }
+        .opacity-80 { opacity: 0.8; }
+
+    </style>
+</head>
+<body class="bg-dark">
+
+    <!-- Slide 1: Title -->
+    <section class="slide col center bg-primary-dark" style="background-color: #1A3A52;">
+        <h1 class="text-white mb-4" style="font-size: 3.75rem;">ASB Consulting</h1>
+        <h2 class="text-gold mb-8" style="color: #D4AF37; font-size: 1.875rem;">Стратегия развития бухгалтерских услуг</h2>
+        <p class="text-white mb-12" style="font-size: 1rem; line-height: 1.6;">Анализ целевой аудитории • УТП • Маркетинговая стратегия • Прогноз эффективности</p>
+        <p class="text-light" style="font-size: 0.875rem;">Декабрь 2025</p>
+    </section>
+
+    <!-- Slide 2: Обзор стратегии -->
+    <section class="slide col bg-light" style="background-color: #ffffff; color: #2C3E50;">
+        <h2 class="text-primary mb-6" style="color: #1A3A52;">Обзор стратегии</h2>
+        <div class="fill-height">
+            <div class="mb-6">
+                <h4 style="color: #2E7D9D; margin-bottom: 0.5rem;">Задача:</h4>
+                <p style="color: #2C3E50;">Разработать комплексную маркетинговую стратегию для привлечения лидов в сегмент бухгалтерских услуг ASB Consulting.</p>
+            </div>
+            <div>
+                <h4 style="color: #2E7D9D; margin-bottom: 0.75rem;">Ключевые направления:</h4>
+                <ul style="color: #2C3E50; list-style: none; margin-left: 0;">
+                    <li><strong style="color: #2E7D9D;">Сегментация:</strong> Два целевых сегмента с разными болями</li>
+                    <li><strong style="color: #2E7D9D;">УТП:</strong> Персональный сервис с экспертизой</li>
+                    <li><strong style="color: #2E7D9D;">Каналы:</strong> Контекст, SEO, контент, таргет в соцсетях</li>
+                    <li><strong style="color: #2E7D9D;">Бюджет:</strong> Оптимальные CPC и CPL для B2B</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 3: Сегмент А -->
+    <section class="slide col bg-light" style="background-color: #ffffff; color: #2C3E50;">
+        <h2 class="text-primary mb-4" style="color: #1A3A52;">Сегмент А: «Начинающие предприниматели»</h2>
+        <div class="two-col" style="gap: 1.5rem;">
+            <div>
+                <h5 style="color: #2E7D9D; margin-bottom: 0.75rem;">Ценности:</h5>
+                <ul style="color: #2C3E50; list-style: none; margin-left: 0; font-size: 0.95rem;">
+                    <li>✓ Экономия времени</li>
+                    <li>✓ Прозрачность и контроль</li>
+                    <li>✓ Экспертная поддержка</li>
+                    <li>✓ Доступная цена</li>
+                </ul>
+            </div>
+            <div>
+                <h5 style="color: #2E7D9D; margin-bottom: 0.75rem;">Основные боли:</h5>
+                <ul style="color: #2C3E50; list-style: none; margin-left: 0; font-size: 0.95rem;">
+                    <li>• Непонимание налогов</li>
+                    <li>• Страх штрафов</li>
+                    <li>• Нехватка времени</li>
+                    <li>• Нужна фокусировка на продажах</li>
+                </ul>
+            </div>
+        </div>
+        <div class="mt-6" style="padding-top: 1rem; border-top: 1px solid #ddd;">
+            <h5 style="color: #2E7D9D; margin-bottom: 0.5rem;">Профиль:</h5>
+            <p style="color: #2C3E50; font-size: 0.9rem;"><strong>Возраст:</strong> 25-35 лет | <strong>Роль:</strong> Основатели стартапов | <strong>Доход:</strong> Переменный</p>
+        </div>
+    </section>
+
+    <!-- Slide 4: Сегмент Б -->
+    <section class="slide col bg-light" style="background-color: #ffffff; color: #2C3E50;">
+        <h2 class="text-primary mb-4" style="color: #1A3A52;">Сегмент Б: «Растущий бизнес»</h2>
+        <div class="two-col" style="gap: 1.5rem;">
+            <div>
+                <h5 style="color: #2E7D9D; margin-bottom: 0.75rem;">Ценности:</h5>
+                <ul style="color: #2C3E50; list-style: none; margin-left: 0; font-size: 0.95rem;">
+                    <li>✓ Эффективность операций</li>
+                    <li>✓ Стратегическое планирование</li>
+                    <li>✓ Налоговая оптимизация</li>
+                    <li>✓ Аналитика и insights</li>
+                </ul>
+            </div>
+            <div>
+                <h5 style="color: #2E7D9D; margin-bottom: 0.75rem;">Основные боли:</h5>
+                <ul style="color: #2C3E50; list-style: none; margin-left: 0; font-size: 0.95rem;">
+                    <li>• Масштабирование процессов</li>
+                    <li>• Налоговая нагрузка</li>
+                    <li>• Автоматизация учета</li>
+                    <li>• Нужна управленческая отчетность</li>
+                </ul>
+            </div>
+        </div>
+        <div class="mt-6" style="padding-top: 1rem; border-top: 1px solid #ddd;">
+            <h5 style="color: #2E7D9D; margin-bottom: 0.5rem;">Профиль:</h5>
+            <p style="color: #2C3E50; font-size: 0.9rem;"><strong>Возраст:</strong> 30-45 лет | <strong>Оборот:</strong> 10+ млн руб./месяц | <strong>Команда:</strong> 10-50+ человек</p>
+        </div>
+    </section>
+
+    <!-- Slide 5: УТП -->
+    <section class="slide col bg-primary-dark" style="background-color: #1A3A52; color: #f1f5f9;">
+        <h2 class="text-gold mb-8" style="color: #D4AF37;">Уникальное торговое предложение ASB Consulting</h2>
+        <div class="two-col" style="gap: 2rem;">
+            <div>
+                <h4 class="text-gold mb-3" style="color: #D4AF37;">УТП для Сегмента А</h4>
+                <p style="color: #cbd5e1; margin-bottom: 1rem;"><strong>«Полная прозрачность налогов + экспертная поддержка за доступную цену»</strong></p>
+                <p style="color: #cbd5e1; font-size: 0.9rem;">Не нужно бояться штрафов. Мы берём всю бухгалтерию на себя, объясняем каждый шаг и гарантируем соответствие законодательству.</p>
+            </div>
+            <div>
+                <h4 class="text-gold mb-3" style="color: #D4AF37;">УТП для Сегмента Б</h4>
+                <p style="color: #cbd5e1; margin-bottom: 1rem;"><strong>«Стратегическая оптимизация + управленческая аналитика + автоматизация»</strong></p>
+                <p style="color: #cbd5e1; font-size: 0.9rem;">Даём стратегические рекомендации по налогам и развитию. Интегрируем с CRM, автоматизируем рутину, даём actionable insights.</p>
+            </div>
+        </div>
+        <div class="mt-8" style="padding-top: 1.5rem; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+            <p style="color: #D4AF37; font-weight: bold;">Ключевое отличие:</p>
+            <p style="color: #f1f5f9; font-size: 0.95rem;">Персональный сервис + глубокая экспертиза (вместо стандартных онлайн-сервисов) + стратегический подход (вместо просто частного бухгалтера)</p>
+        </div>
+    </section>
+
+    <!-- Slide 6: Анализ конкурентов -->
+    <section class="slide col bg-light" style="background-color: #ffffff; color: #2C3E50;">
+        <h2 class="text-primary mb-6" style="color: #1A3A52;">Анализ конкурентов</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; font-size: 0.85rem; line-height: 1.5;">
+            <div style="padding: 1rem; background-color: #f8f9fa; border-radius: 0;">
+                <h5 style="color: #2E7D9D; margin-bottom: 0.5rem;">Контур.Эльба</h5>
+                <p><strong>УТП:</strong> Автоматизация, простота</p>
+                <p><strong>Цена:</strong> 634-3634 руб/мес</p>
+                <p><strong>Минус:</strong> Нет персонального эксперта</p>
+            </div>
+            <div style="padding: 1rem; background-color: #f8f9fa; border-radius: 0;">
+                <h5 style="color: #2E7D9D; margin-bottom: 0.5rem;">Частные бухгалтеры</h5>
+                <p><strong>УТП:</strong> Персональное внимание</p>
+                <p><strong>Цена:</strong> 15-25 тыс руб/месяц</p>
+                <p><strong>Минус:</strong> Не всегда достаточная экспертиза</p>
+            </div>
+            <div style="padding: 1rem; background-color: #f8f9fa; border-radius: 0;">
+                <h5 style="color: #2E7D9D; margin-bottom: 0.5rem;">Мое дело Бюро</h5>
+                <p><strong>УТП:</strong> Комплекс + консультации юристов</p>
+                <p><strong>Цена:</strong> 4952-9089 руб/мес</p>
+                <p><strong>Минус:</strong> Консультации ограничены</p>
+            </div>
+            <div style="padding: 1rem; background-color: #e8f4f8; border-radius: 0; border-left: 3px solid #2E7D9D;">
+                <h5 style="color: #1A3A52; margin-bottom: 0.5rem;"><strong>ASB Consulting</strong></h5>
+                <p><strong>УТП:</strong> Персональный сервис + экспертиза</p>
+                <p><strong>Цена:</strong> 15-25 тыс руб/мес (премиум)</p>
+                <p style="color: #47B881;"><strong>✓ Стратегический подход + репутация</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 7: Цифровые каналы -->
+    <section class="slide col bg-light" style="background-color: #ffffff; color: #2C3E50;">
+        <h2 class="text-primary mb-6" style="color: #1A3A52;">Цифровые каналы привлечения лидов</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; font-size: 0.9rem;">
+            <div style="padding: 1.5rem; background-color: #e8f4f8; border-radius: 0;">
+                <h4 style="color: #2E7D9D; margin-bottom: 0.75rem;">1. Контекст (Яндекс)</h4>
+                <p><strong style="color: #47B881;">30 лидов/мес</strong></p>
+                <p><strong>CPC:</strong> 200-300 руб</p>
+                <p><strong>CPL:</strong> 2000-2500 руб</p>
+                <p style="color: #666; font-size: 0.85rem; margin-top: 0.5rem;">Высокий интент, быстрые лиды</p>
+            </div>
+            <div style="padding: 1.5rem; background-color: #e8f4f8; border-radius: 0;">
+                <h4 style="color: #2E7D9D; margin-bottom: 0.75rem;">2. SEO + Контент</h4>
+                <p><strong style="color: #47B881;">25 лидов/мес</strong></p>
+                <p><strong>CPC:</strong> 0 руб (орг. трафик)</p>
+                <p><strong>CPL:</strong> 1500-2000 руб</p>
+                <p style="color: #666; font-size: 0.85rem; margin-top: 0.5rem;">Длинная дистанция, дешевле</p>
+            </div>
+            <div style="padding: 1.5rem; background-color: #e8f4f8; border-radius: 0;">
+                <h4 style="color: #2E7D9D; margin-bottom: 0.75rem;">3. Таргет ВКонтакте</h4>
+                <p><strong style="color: #FF8C00;">15 лидов/мес</strong></p>
+                <p><strong>CPC:</strong> 60-100 руб</p>
+                <p><strong>CPL:</strong> 2000-2800 руб</p>
+                <p style="color: #666; font-size: 0.85rem; margin-top: 0.5rem;">Молодые предприниматели</p>
+            </div>
+        </div>
+        <div class="mt-6" style="padding-top: 1rem; border-top: 1px solid #ddd;">
+            <p style="color: #1A3A52; font-weight: bold;">Рекомендация: Отдельный лендинг на поддомене <span style="color: #D4AF37;">buh.asbconsulting.ru</span></p>
+            <p style="color: #666; font-size: 0.9rem; margin-top: 0.5rem;">Четкий фокус на целевую аудиторию, лучшая SEO оптимизация, персональное УТП, улучшенная конверсия</p>
+        </div>
+    </section>
+
+    <!-- Slide 8: Форматы контента -->
+    <section class="slide col bg-light" style="background-color: #ffffff; color: #2C3E50;">
+        <h2 class="text-primary mb-6" style="color: #1A3A52;">Форматы контента для доверия и конверсии</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; font-size: 0.9rem;">
+            <div>
+                <h5 style="color: #2E7D9D; margin-bottom: 0.75rem;">📊 Кейсы + Case Studies</h5>
+                <p style="margin-bottom: 0.5rem;"><strong>Пример:</strong> «Как мы сэкономили 500 тыс руб/год налогов для ООО»</p>
+                <p style="color: #666; font-size: 0.85rem;">Конкретные числа, результаты. Работает для Сегмента Б.</p>
+                
+                <h5 style="color: #2E7D9D; margin-bottom: 0.75rem; margin-top: 1.5rem;">📝 Блог + Гайды (SEO)</h5>
+                <p style="margin-bottom: 0.5rem;"><strong>Примеры:</strong> «Руководство по УСН», «Как считать НДС»</p>
+                <p style="color: #666; font-size: 0.85rem;">Длинная дистанция, дают орг. трафик 6-12 месяцев</p>
+            </div>
+            <div>
+                <h5 style="color: #2E7D9D; margin-bottom: 0.75rem;">🎓 Вебинары + Вебинар-серии</h5>
+                <p style="margin-bottom: 0.5rem;"><strong>Примеры:</strong> «Топ-5 налоговых ошибок стартапа»</p>
+                <p style="color: #666; font-size: 0.85rem;">Живое общение, Q&A. Хорошо конвертит Сегмент А.</p>
+
+                <h5 style="color: #2E7D9D; margin-bottom: 0.75rem; margin-top: 1.5rem;">🧮 Калькулятор услуг</h5>
+                <p style="margin-bottom: 0.5rem;"><strong>Функция:</strong> Клиент выбирает услуги, видит цену, оставляет контакт</p>
+                <p style="color: #666; font-size: 0.85rem;">Квалифицирует лид, CPL ниже, качество выше</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 9: Рыночные показатели -->
+    <section class="slide col bg-light" style="background-color: #ffffff; color: #2C3E50;">
+        <h2 class="text-primary mb-6" style="color: #1A3A52;">Рыночные показатели: CPC и CPL</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            <div>
+                <h5 style="color: #2E7D9D; margin-bottom: 1rem;">Контекстная реклама (Яндекс Директ)</h5>
+                <div style="padding: 1rem; background-color: #f8f9fa; margin-bottom: 1rem;">
+                    <p><strong>CPC по общим ключам:</strong> 150-300 руб</p>
+                    <p><strong>CPC по специфичным:</strong> 100-200 руб</p>
+                    <p><strong>CPC по конкурентным:</strong> 300-500 руб</p>
+                </div>
+                <div style="padding: 1rem; background-color: #e8f4f8; border-radius: 0;">
+                    <p style="font-size: 0.9rem;"><strong style="color: #2E7D9D;">Рекомендуемая CPL:</strong></p>
+                    <p style="font-size: 1.5rem; font-weight: bold; color: #1A3A52; margin: 0.5rem 0;">1500-2500 руб/лид</p>
+                    <p style="font-size: 0.8rem; color: #666;">Конверсия сайта: ~10% (1 лид на 10 кликов)</p>
+                </div>
+            </div>
+            <div>
+                <h5 style="color: #2E7D9D; margin-bottom: 1rem;">Рекомендуемый стек ключевых слов</h5>
+                <div style="padding: 1rem; background-color: #f8f9fa; margin-bottom: 0.5rem;">
+                    <p><strong>Для Сегмента А (CPC: 150-250):</strong></p>
+                    <ul style="margin-left: 1.5rem; font-size: 0.9rem;">
+                        <li>«бухгалтерские услуги для ООО»</li>
+                        <li>«налоговый консультант»</li>
+                        <li>«аутсорсинг бухгалтерии»</li>
+                    </ul>
+                </div>
+                <div style="padding: 1rem; background-color: #f8f9fa;">
+                    <p><strong>Для Сегмента Б (CPC: 200-350):</strong></p>
+                    <ul style="margin-left: 1.5rem; font-size: 0.9rem;">
+                        <li>«оптимизация налогов ООО»</li>
+                        <li>«интеграция 1С бухгалтерия»</li>
+                        <li>«управленческая отчетность»</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 10: Прогноз лидов по каналам -->
+    <section class="slide col bg-light" style="background-color: #ffffff; color: #2C3E50;">
+        <h2 class="text-primary mb-6" style="color: #1A3A52;">Прогноз: Лиды по каналам (месячный)</h2>
+        <div style="display: flex; gap: 2rem; align-items: flex-end; height: 250px; padding: 1rem 0;">
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;">
+                <div style="width: 100%; height: 180px; background-color: #2E7D9D; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; color: white;">30</div>
+                <p style="text-align: center; font-weight: bold;">Контекст<br/>(Яндекс)</p>
+            </div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;">
+                <div style="width: 100%; height: 150px; background-color: #47B881; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; color: white;">25</div>
+                <p style="text-align: center; font-weight: bold;">SEO<br/>(контент)</p>
+            </div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;">
+                <div style="width: 100%; height: 120px; background-color: #D4AF37; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; color: #1A3A52;">20</div>
+                <p style="text-align: center; font-weight: bold;">Контент<br/>(Блог)</p>
+            </div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;">
+                <div style="width: 100%; height: 90px; background-color: #FF8C00; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; color: white;">15</div>
+                <p style="text-align: center; font-weight: bold;">VK Таргет</p>
+            </div>
+        </div>
+        <div class="mt-8" style="padding-top: 1.5rem; border-top: 2px solid #ddd; text-align: center;">
+            <h4 style="color: #1A3A52; margin: 0;">Итого: <strong style="font-size: 1.25rem;">~90 квалифицированных лидов в месяц</strong></h4>
+            <p style="color: #2E7D9D; margin-top: 0.5rem;">Общий бюджет: <strong>50-80 тыс руб/месяц</strong></p>
+        </div>
+    </section>
+
+    <!-- Slide 11: Позиционирование -->
+    <section class="slide col bg-light" style="background-color: #ffffff; color: #2C3E50;">
+        <h2 class="text-primary mb-6" style="color: #1A3A52;">Позиционирование на рынке: Сравнение тарифов</h2>
+        <p style="color: #2E7D9D; font-size: 0.9rem; margin-bottom: 1.5rem;"><strong>ASB позиционируется в премиальном сегменте между онлайн-сервисами и дорогими бухгалтерами</strong></p>
+        <div style="display: flex; align-items: flex-end; gap: 1rem; height: 280px;">
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;">
+                <div style="width: 100%; height: 40px; background-color: #47B881; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">2.9K</div>
+                <p style="text-align: center; font-size: 0.85rem; font-weight: bold;">Контур<br/>Эльба</p>
+            </div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;">
+                <div style="width: 100%; height: 60px; background-color: #FDB927; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">5K</div>
+                <p style="text-align: center; font-size: 0.85rem; font-weight: bold;">Мое дело<br/>Бюро</p>
+            </div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;">
+                <div style="width: 100%; height: 200px; background-color: #e8f4f8; border: 2px solid #1A3A52; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center; color: #1A3A52; font-weight: bold; font-size: 1.1rem;">20K</div>
+                <p style="text-align: center; font-size: 0.85rem; font-weight: bold; color: #1A3A52;"><strong>ASB</strong><br/>Consulting</p>
+            </div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;">
+                <div style="width: 100%; height: 240px; background-color: #FF6B6B; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">21.2K</div>
+                <p style="text-align: center; font-size: 0.85rem; font-weight: bold;">Мое дело<br/>Бухгалтер</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 12: План реализации -->
+    <section class="slide col bg-light" style="background-color: #ffffff; color: #2C3E50;">
+        <h2 class="text-primary mb-6" style="color: #1A3A52;">План реализации: Квартал 1</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; font-size: 0.9rem;">
+            <div>
+                <h4 style="color: #2E7D9D; margin-bottom: 0.75rem;">📅 Неделя 1-2: Подготовка</h4>
+                <ul style="list-style: none; margin-left: 0; color: #2C3E50;">
+                    <li>✓ Создание лендинга (buh.asbconsulting.ru)</li>
+                    <li>✓ Настройка аналитики и коллтрекинга</li>
+                    <li>✓ Подготовка копирайтинга по УТП</li>
+                    <li>✓ Создание калькулятора услуг</li>
+                </ul>
+                
+                <h4 style="color: #2E7D9D; margin-bottom: 0.75rem; margin-top: 1.5rem;">📅 Неделя 3-4: Запуск рекламы</h4>
+                <ul style="list-style: none; margin-left: 0; color: #2C3E50;">
+                    <li>✓ Запуск контекстной рекламы (Яндекс)</li>
+                    <li>✓ Начало таргета ВКонтакте</li>
+                    <li>✓ Оптимизация посадочной страницы</li>
+                    <li>✓ Мониторинг конверсий</li>
+                </ul>
+            </div>
+            <div>
+                <h4 style="color: #2E7D9D; margin-bottom: 0.75rem;">📅 Месяц 2: Контент и расширение</h4>
+                <ul style="list-style: none; margin-left: 0; color: #2C3E50;">
+                    <li>✓ Запуск первого вебинара</li>
+                    <li>✓ Начало блога (5-7 статей)</li>
+                    <li>✓ Подготовка 2-3 кейс-стадиз</li>
+                    <li>✓ A/B тестирование объявлений</li>
+                </ul>
+
+                <h4 style="color: #2E7D9D; margin-bottom: 0.75rem; margin-top: 1.5rem;">📅 Месяц 3: Оптимизация и масштаб</h4>
+                <ul style="list-style: none; margin-left: 0; color: #2C3E50;">
+                    <li>✓ Вебинар серия (2-3 выпуска)</li>
+                    <li>✓ SEO оптимизация</li>
+                    <li>✓ Масштабирование работающих каналов</li>
+                    <li>✓ Корректировка стратегии</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 13: Бюджет и ROI -->
+    <section class="slide col bg-primary-dark" style="background-color: #1A3A52; color: #f1f5f9;">
+        <h2 class="text-gold mb-8" style="color: #D4AF37;">Бюджет и ROI: Годовой расчет</h2>
+        <div class="two-col" style="gap: 2rem;">
+            <div>
+                <h4 class="text-gold mb-4" style="color: #D4AF37;">Рекомендуемый маркетинговый бюджет</h4>
+                <div style="padding: 1.5rem; background-color: rgba(255, 255, 255, 0.1); border-radius: 0; margin-bottom: 1rem;">
+                    <p style="font-size: 2rem; font-weight: bold; color: #D4AF37; margin: 0;">840K руб/год</p>
+                    <p style="color: #cbd5e1; font-size: 0.9rem; margin: 0.5rem 0 0 0;">~70K/месяц</p>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-gold mb-4" style="color: #D4AF37;">Ожидаемый результат</h4>
+                <ul style="list-style: none; margin-left: 0; color: #f1f5f9; line-height: 2;">
+                    <li>✓ <strong>1080 квалифицированных лидов/год</strong></li>
+                    <li>✓ <strong>CPL: ~2200 руб</strong></li>
+                    <li>✓ <strong>100-160 новых клиентов</strong></li>
+                    <li>✓ <strong>Доход: ~24 млн/год</strong></li>
+                    <li>✓ <strong style="color: #47B881;">ROI: 10x</strong></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 14: KPI -->
+    <section class="slide col bg-light" style="background-color: #ffffff; color: #2C3E50;">
+        <h2 class="text-primary mb-6" style="color: #1A3A52;">KPI для отслеживания эффективности</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+            <div style="padding: 1.5rem; background-color: #f8f9fa;">
+                <h5 style="color: #2E7D9D; margin-bottom: 0.5rem;">CPC (Cost Per Click)</h5>
+                <p style="font-size: 1.5rem; font-weight: bold; color: #1A3A52; margin: 0.5rem 0;">200-300 руб/клик</p>
+                <p style="color: #666; font-size: 0.85rem;">Отслеживаем в Яндекс.Директ и аналитике</p>
+            </div>
+            <div style="padding: 1.5rem; background-color: #f8f9fa;">
+                <h5 style="color: #2E7D9D; margin-bottom: 0.5rem;">CTR (Click-Through Rate)</h5>
+                <p style="font-size: 1.5rem; font-weight: bold; color: #1A3A52; margin: 0.5rem 0;">3-5% объявлений</p>
+                <p style="color: #666; font-size: 0.85rem;">Хорошо: >3%, Отлично: >5%</p>
+            </div>
+            <div style="padding: 1.5rem; background-color: #f8f9fa;">
+                <h5 style="color: #2E7D9D; margin-bottom: 0.5rem;">CPL (Cost Per Lead)</h5>
+                <p style="font-size: 1.5rem; font-weight: bold; color: #1A3A52; margin: 0.5rem 0;">2000-2500 руб/лид</p>
+                <p style="color: #666; font-size: 0.85rem;">Считаем через CRM + коллтрекинг</p>
+            </div>
+            <div style="padding: 1.5rem; background-color: #f8f9fa;">
+                <h5 style="color: #2E7D9D; margin-bottom: 0.5rem;">Конверсия сайта</h5>
+                <p style="font-size: 1.5rem; font-weight: bold; color: #1A3A52; margin: 0.5rem 0;">8-12% сайт → лид</p>
+                <p style="color: #666; font-size: 0.85rem;">Форма, звонок, калькулятор</p>
+            </div>
+            <div style="padding: 1.5rem; background-color: #f8f9fa;">
+                <h5 style="color: #2E7D9D; margin-bottom: 0.5rem;">CPA (Cost Per Action)</h5>
+                <p style="font-size: 1.5rem; font-weight: bold; color: #1A3A52; margin: 0.5rem 0;">18-24K руб/клиент</p>
+                <p style="color: #666; font-size: 0.85rem;">При конверсии 10-15% лидов</p>
+            </div>
+            <div style="padding: 1.5rem; background-color: #f8f9fa;">
+                <h5 style="color: #2E7D9D; margin-bottom: 0.5rem;">Целевой показатель лидов</h5>
+                <p style="font-size: 1.5rem; font-weight: bold; color: #1A3A52; margin: 0.5rem 0;">70-90 в месяц</p>
+                <p style="color: #666; font-size: 0.85rem;">По всем каналам</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 15: Ключевые выводы -->
+    <section class="slide col bg-primary-dark" style="background-color: #1A3A52; color: #f1f5f9;">
+        <h2 class="text-gold mb-8" style="color: #D4AF37;">Ключевые выводы</h2>
+        <div class="fill-height" style="display: flex; flex-direction: column; justify-content: center; gap: 1.5rem;">
+            <div>
+                <h4 class="text-gold" style="color: #D4AF37;">1. Сегментация - критична</h4>
+                <p style="color: #cbd5e1; margin: 0;">Сегмент А и Б имеют разные боли и каналы коммуникации. Разные УТП, разный контент, разные ключевые слова.</p>
+            </div>
+            <div>
+                <h4 class="text-gold" style="color: #D4AF37;">2. УТП ASB - персонализация + экспертиза</h4>
+                <p style="color: #cbd5e1; margin: 0;">Не конкурируем ценой с онлайн-сервисами, а предлагаем премиум: стратегический консалтинг + персональный подход.</p>
+            </div>
+            <div>
+                <h4 class="text-gold" style="color: #D4AF37;">3. Контекст + SEO - основа</h4>
+                <p style="color: #cbd5e1; margin: 0;">Контекстная реклама - быстрые лиды (30/месяц), SEO - долгосрочная база (25/месяц через 3-6 мес).</p>
+            </div>
+            <div>
+                <h4 class="text-gold" style="color: #D4AF37;">4. ROI - 10x за год</h4>
+                <p style="color: #cbd5e1; margin: 0;"><strong>При бюджете 840K → 1080 лидов → 100-160 клиентов → доход ~24 млн руб</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 16: Спасибо -->
+    <section class="slide col center bg-primary-dark" style="background-color: #020617;">
+        <h2 class="text-gold mb-6" style="color: #D4AF37; font-size: 2.5rem;">Спасибо за внимание!</h2>
+        <p class="text-light mb-12" style="font-size: 1rem;">Контактируйте для обсуждения деталей и внедрения стратегии</p>
+        <div style="padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.2);">
+            <p class="text-light" style="margin-bottom: 0.5rem;">ASB Consulting Group</p>
+            <p class="text-gold" style="margin: 0; font-size: 1.1rem; font-weight: bold;">www.asbconsulting.ru</p>
+            <p class="text-light" style="margin-top: 0.5rem; font-size: 0.9rem;">Вопросы и уточнения?</p>
+        </div>
+    </section>
+
+</body>
+</html>
